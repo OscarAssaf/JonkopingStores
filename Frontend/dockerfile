@@ -1,0 +1,23 @@
+# Use Node.js 
+FROM node:20-alpine
+
+#Set working directory
+WORKDIR /usr/src/app
+
+#Copy package.json and package-lock.json first
+COPY package.json package-lock.json ./
+
+#Install dependencies
+RUN npm install
+
+#Copy the rest of the frontend
+COPY . .
+
+#port
+EXPOSE 3000
+
+# Start the frontend 
+CMD ["npx", "http-server", "-p", "3000"]
+
+#docker run -p 3000:3000 --name frontend-container frontend-app
+#to connect the docker to the backend
