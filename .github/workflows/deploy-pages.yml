@@ -2,7 +2,7 @@ name: Deploy portfolio demo
 
 on:
   push:
-    branches: [portfolio-demo]
+    branches: [JonkopingStores-demo]
   workflow_dispatch:
 
 permissions:
