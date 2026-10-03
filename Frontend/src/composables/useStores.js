@@ -1,4 +1,7 @@
 import { ref, computed } from 'vue'
+import demoStores from '../../../Backend/stores.json'
+
+const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true'
 
 const stores = ref([])
 const loading = ref(false)
@@ -13,6 +16,11 @@ export function useStores() {
     error.value = null
 
     try {
+      if (isDemoMode) {
+        stores.value = demoStores.map((store, index) => ({ ...store, id: index + 1 }))
+        return
+      }
+
       const response = await fetch('/api/stores')
       if (!response.ok) throw new Error('Failed to fetch stores')
       stores.value = await response.json()
@@ -25,6 +33,8 @@ export function useStores() {
   }
 
   async function deleteStore(id) {
+    if (isDemoMode) throw new Error('The hosted demo is read-only')
+
     const response = await fetch(`/api/stores/${id}`, {
       method: 'DELETE',
       credentials: 'include',

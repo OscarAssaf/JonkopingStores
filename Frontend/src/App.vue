@@ -7,7 +7,7 @@ import { useAuth } from './composables/useAuth'
 const { setUserFromServer } = useAuth()
 
 onMounted(async () => {
-  if (window.__USER__ != null) return
+  if (import.meta.env.VITE_DEMO_MODE === 'true' || window.__USER__ != null) return
 
   try {
     const response = await fetch('/api/auth', { credentials: 'include' })

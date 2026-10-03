@@ -5,6 +5,8 @@ import StoreFilters from '../components/StoreFilters.vue'
 import StoreCard from '../components/StoreCard.vue'
 import { useStores } from '../composables/useStores'
 
+const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true'
+
 const {
   loading,
   error,
@@ -35,6 +37,9 @@ async function handleDelete(id) {
 
     <section id="stores" class="stores-section">
       <div class="container">
+        <p v-if="isDemoMode" class="demo-notice">
+          Portfolio demo: store listings are sample data and may not reflect current details.
+        </p>
         <div class="section-heading">
           <h2>Shop the city centre</h2>
           <p>

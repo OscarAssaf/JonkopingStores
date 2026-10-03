@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 
 const { user, logout } = useAuth()
 const router = useRouter()
+const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true'
 
 async function handleLogout() {
   await logout()
@@ -31,6 +32,7 @@ async function handleLogout() {
             Log out
           </button>
         </template>
+        <span v-else-if="isDemoMode" class="header__greeting">Read-only demo</span>
         <RouterLink v-else to="/login" class="btn btn--primary btn--sm">
           Admin login
         </RouterLink>
